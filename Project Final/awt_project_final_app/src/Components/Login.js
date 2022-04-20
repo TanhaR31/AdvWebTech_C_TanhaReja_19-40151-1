@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 import Header from "./Header";
 
 const Login = () => {
@@ -21,11 +21,20 @@ const Login = () => {
         var token = resp.data;
         console.log(token);
 
+        if(token){
+          let user = { id, password, token }
+          localStorage.setItem("user-info", JSON.stringify(user));
+          // console.log(localStorage.getItem('user'));
+          history.push("/productList");
+        }
+        else{
+          alert("User Not Found !!")
+          history.push("/login");
+        }
+        
+
         //var user = { userId: token.userid, access_token: token.token };
-        let user = { id, password, token }
-        localStorage.setItem("user-info", JSON.stringify(user));
-        // console.log(localStorage.getItem('user'));
-        history.push("/product/list");
+        
       })
       .catch((err) => {
         console.log(err);
@@ -35,13 +44,13 @@ const Login = () => {
   return (
     <>
       <Header />
-      <div class="login-page">
-        <div className="login-box">
+      <div class="">
+        <div className="col-sm-6 offset-sm-3">
           <div className="login-logo">
           </div>
           <div className="">
             <div className="card-body login-card-body">
-              <center><p className="login-box-msg">Sign in</p></center>
+              <center><h1>Sign In</h1></center>
               <form onSubmit={loginSubmit}>
                 <input
                   type="hidden"
@@ -94,11 +103,10 @@ const Login = () => {
                 </div>
               </form>
 
-              <p className="mb-0">
-                <Link to={"/register"} className="text-center">
-                  Don't have a account? Register Here
-                </Link>
-              </p>
+              <h1 className="forgot-password text-center">
+              Don't have a account? <a href="/register">Register Here</a>
+                </h1>
+
             </div>
             {/* /.login-card-body */}
           </div>

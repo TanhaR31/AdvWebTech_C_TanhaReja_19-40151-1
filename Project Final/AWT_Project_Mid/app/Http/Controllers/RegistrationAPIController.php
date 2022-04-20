@@ -24,7 +24,7 @@ class RegistrationAPIController extends Controller
         $seller->s_password = md5($request->s_password);
         $seller->s_password_confirm = md5($request->s_password_confirm);
         $seller->s_address = $request->s_address;
-        $seller->s_approve = 'no';
+        $seller->s_approve = 'yes';
         $seller->save();
 
         //Admin will do this part after approval. For now doing like this.
@@ -39,7 +39,7 @@ class RegistrationAPIController extends Controller
 
     public function mail(Request $request)
     {
-        $data = ['name' => "Nazim Hasan", 'data' => 'Hello Nazim'];
+        $data = ['name' => "User", 'data' => 'Hello Seller'];
 
         $emailAddress = $request->email;
 

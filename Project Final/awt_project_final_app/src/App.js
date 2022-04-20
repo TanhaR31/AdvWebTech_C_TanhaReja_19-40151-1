@@ -6,7 +6,17 @@ import SellerProductList from "./Components/SellerProductList";
 import SellerProductAdd from "./Components/SellerProductAdd";
 import SellerProductUpdate from "./Components/SellerProductUpdate";
 import SellerProductDelete from "./Components/SellerProductDelete";
-import axios from "axios";
+import SellerProductUnapproved from "./Components/SellerProductUnapproved";
+import Protected from "./Components/Protected";
+
+
+// var token = null;
+// if (localStorage.getItem("user-info")) {
+//   var obj = JSON.parse(localStorage.getItem("user-info"));
+//   token = obj.token;
+// }
+// axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
+// axios.defaults.headers.common["Authorization"] = token;
 
 function App() {
 
@@ -20,7 +30,7 @@ function App() {
 
                     <Route exact path="/">
 
-                        <Login />
+                        <Home />
 
                     </Route>
 
@@ -42,27 +52,33 @@ function App() {
 
                     </Route>
 
-                    <Route path="/product/list">
+                    <Route path="/productList">
 
-                        <SellerProductList />
+                        <Protected Cmp={SellerProductList} />
 
                     </Route>
 
                     <Route path="/product/add">
 
-                        <SellerProductAdd />
+                        <Protected Cmp={SellerProductAdd} />
 
                     </Route>
 
-                    <Route path="/product/update">
+                    <Route path="/updateProduct/:id">
 
-                        <SellerProductUpdate />
+                        <Protected Cmp={SellerProductUpdate} />
 
                     </Route>
 
                     <Route path="/product/delete">
 
-                        <SellerProductDelete />
+                        <Protected Cmp={SellerProductDelete} />
+
+                    </Route>
+
+                    <Route path="/product/unapproved">
+
+                        <Protected Cmp={SellerProductUnapproved} />
 
                     </Route>
 

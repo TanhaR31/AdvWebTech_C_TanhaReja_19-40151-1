@@ -1,16 +1,32 @@
 import { Navbar, Nav, Container, Offcanvas, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 import { useHistory } from 'react-router-dom';
+import axios from "axios";
 import logo from '../logo.svg';
 
 const Header = () => {
     const history = useHistory();
     let user = JSON.parse(localStorage.getItem('user-info'))
     //console.warn(user.s_name)
-    function logOut(){
+
+    function logOut() {
+        var obj = { Token: user.token };
+        //console.log(obj);
+        axios
+            .post("http://127.0.0.1:8000/api/logout", obj)
+            .then((resp) => {
+                var token = resp.data;
+                console.log(token);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
         localStorage.clear();
         history.push('/login');
     }
+
+
+
     // const navigate = useNavigate();
     return (
         <div>
@@ -32,18 +48,17 @@ const Header = () => {
                                 {
                                     localStorage.getItem('user-info') ?
                                         <>
-                                        <NavDropdown title="User" id="offcanvasNavbarDropdown">
+                                            <NavDropdown title="User" id="offcanvasNavbarDropdown">
                                                 <NavDropdown.Item>Seller Id : {user && user.id}</NavDropdown.Item>
                                                 <NavDropdown.Divider />
                                                 <NavDropdown.Item onClick={logOut}>
                                                     Log Out
                                                 </NavDropdown.Item>
                                             </NavDropdown>
+                                            <Nav.Link className="text-dark" as={NavLink} to="/home">Home</Nav.Link>
                                             <NavDropdown title="Products" id="offcanvasNavbarDropdown">
-                                                <NavDropdown.Item href="/product/list">Product List</NavDropdown.Item>
+                                                <NavDropdown.Item href="/productList">Product List</NavDropdown.Item>
                                                 <NavDropdown.Item href="/product/add">Add New Product</NavDropdown.Item>
-                                                <NavDropdown.Item href="/product/update">Update Product</NavDropdown.Item>
-                                                <NavDropdown.Item href="/product/delete">Delete Product</NavDropdown.Item>
                                                 <NavDropdown.Divider />
                                                 <NavDropdown.Item href="product/unapproved">
                                                     Unapproved Products
@@ -61,7 +76,7 @@ const Header = () => {
                                         </>
                                 }
                             </Nav>
-                            <br /><Form className="d-flex">
+                            {/* <br /><Form className="d-flex">
                                 <FormControl
                                     type="search"
                                     placeholder="Search"
@@ -69,7 +84,7 @@ const Header = () => {
                                     aria-label="Search"
                                 />
                                 <Button variant="outline-success">Search</Button>
-                            </Form>
+                            </Form> */}
                         </Offcanvas.Body>
                     </Navbar.Offcanvas>
                 </Container>

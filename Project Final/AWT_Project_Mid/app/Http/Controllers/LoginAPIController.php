@@ -14,7 +14,7 @@ class LoginAPIController extends Controller
     {
         $c = Seller::where('id', $req->id)
             ->where('s_password', md5($req->s_password))
-            ->where('s_approve', "no")
+            ->where('s_approve', "yes")
             ->first();
 
         if ($c) {
@@ -24,21 +24,18 @@ class LoginAPIController extends Controller
             $token->token = $api_token;
             $token->created_at = new DateTime();
             $token->save();
-            return $token;
+            return $token->token;
         }
     }
 
     public function logout(Request $req)
     {
-        // echo $req->userId;
-        $token = Token::where('token', $req->Token)->first();
-        // return $
-        // $token->Id=$token->Id;
-        // $token->user_id=$token->user_id;
-        // $token->Token=$req->Token;
-        // $token->created_at=$token->created_at;
-        $token->expired_at = new DateTime();
-        $token->save();
-        return $token;
+        Token::where('token', $req->Token)->delete();
+
+        $tok = Token::where('token', $req->Token)->first();
+        if(!$tok){
+            return "Token Deleted";
+        }
+        return "Nope";
     }
 }

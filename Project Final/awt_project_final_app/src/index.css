@@ -22,8 +22,8 @@ body {
   font-weight: 400;
   font-family: sans-serif;
   background: #12c2e9;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #faa5ab, #d37aff, #9ed7e4);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #ffb2b7, #b76fdb, #e2dc95); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* background: -webkit-linear-gradient(to right, #6e2529, #dfa2fd, #b3d7df);  Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #dbfcf2, #e5cef0, #f5efb4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   
 }
 

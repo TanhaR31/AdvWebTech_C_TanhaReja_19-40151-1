@@ -9,13 +9,12 @@ class Token extends Model
 {
     public $timestamps=false;
     use HasFactory;
-    
 
     protected $fillable = [
-        'id',
+        'Id',
         'user_id',
         'token',
         'created_at',
-        'expired_at',
+        'expired_at'
     ];
 }

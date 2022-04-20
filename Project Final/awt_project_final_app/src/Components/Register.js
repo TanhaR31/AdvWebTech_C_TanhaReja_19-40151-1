@@ -14,11 +14,11 @@ function Register() {
     // const [image, setImage] = useState([])
 
     const history = useHistory();
-    useEffect(() => {
-        if (localStorage.getItem('user-info')) {
-            history.push('/login')
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (localStorage.getItem('user-info')) {
+    //         history.push('/login')
+    //     }
+    // }, [])
 
     async function signup() {
         //console.warn(s_name, s_phone, s_email, s_password, s_password_confirm, s_address, image)
@@ -53,7 +53,7 @@ function Register() {
         <>
             <Header />
             <div className="col-sm-6 offset-sm-3">
-                <h1>Seller Register Page</h1>
+                <center><h1>Seller Register Page</h1></center>
 
                 <label>Seller ID</label>
                 <input type="number" value={id} onChange={(e) => setId(e.target.value)} className="form-control" placeholder="Enter Id " />

@@ -4,7 +4,7 @@ import axios from "axios";
 import Login from "./Login";
 import react, { useState, useEffect } from "react";
 
-function SellerProductList() {
+function SellerProductUnapproved() {
 
     const [products, setProducts] = useState([]);
     const [refresh, setRefresh] = useState(false);
@@ -17,7 +17,7 @@ function SellerProductList() {
 
         axios
 
-            .post("http://127.0.0.1:8000/api/product/slist", obj)
+            .post("http://127.0.0.1:8000/api/product/ulist", obj)
 
             .then((resp) => {
 
@@ -37,16 +37,16 @@ function SellerProductList() {
 
     }, [refresh]);
 
-    const handleDelete = (id) => {
-        const proceed = window.confirm("Are You Sure?");
+    const changeApprove = (id) => {
+        const proceed = window.confirm("Change Approval?");
         if (proceed) {
             axios
-                .post(`http://127.0.0.1:8000/api/deleteProduct/${id}`)
+                .post(`http://127.0.0.1:8000/api/changeApprove/${id}`)
 
                 .then((resp) => {
 
                     console.log(resp.data);
-                    alert("Product Deleted :(");
+                    alert("Approval Changed");
                     //history.push("/productList");
                     setRefresh(true);
 
@@ -69,8 +69,8 @@ function SellerProductList() {
             <Header />
 
             <div class="">
-            <center><h1>Your Products List Page</h1></center>
-                <div className="col-sm-5 offset-sm-2">
+                <center><h1>Seller Unapproved Products Page</h1></center>
+                <div className="col-sm-4 offset-sm-2">
                     
                     <table class="table table-hover table-dark">
                         <thead>
@@ -88,8 +88,7 @@ function SellerProductList() {
                                 <th>Discount</th>
                                 <th>Total</th>
                                 <th>Approved</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
+                                <th>Change</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -110,8 +109,7 @@ function SellerProductList() {
                                         <td>{product.discount}</td>
                                         <td>{product.total_price}</td>
                                         <td>{product.p_approve}</td>
-                                        <td><button className="btn btn-warning px-3 btn-sm mx-1"><Link to={`updateProduct/${product.id}`}>Edit</Link></button></td>
-                                        <td><button onClick={() => handleDelete(product.id)} className="btn btn-danger px-3 btn-sm mx-1">Delete</button></td>
+                                        <td><button onClick={() => changeApprove(product.id)} className="btn btn-warning px-3 btn-sm mx-1">Change</button></td>
                                     </tr>
                                 ))}
                         </tbody>
@@ -128,4 +126,4 @@ function SellerProductList() {
     )
 }
 
-export default SellerProductList
+export default SellerProductUnapproved

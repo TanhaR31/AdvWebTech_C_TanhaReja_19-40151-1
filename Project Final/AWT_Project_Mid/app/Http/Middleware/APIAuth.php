@@ -19,12 +19,12 @@ class APIAuth
     {
         $token = $request->header("Authorization");
 
-        $check_token = Token::where('token',$token)->where('expired_at',NULL)->first();
+        $check_token = Token::where('token',$token)->first();
 
         if ($check_token) {
 
             return $next($request);
-            
+               
         }
 
         else return response("Invalid token",401);

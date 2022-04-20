@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Header from "./Header";
 
 function Protected(props) {
     let Cmp=props.Cmp
-    const navigate = useNavigate();
+    const history = useHistory();
     useEffect(()=>{
         if(!localStorage.getItem('user-info')){
-            navigate('/register')
+            history.push('/login')
         }
+        // else
+        // history.push('/product/list')
     },[])
     return (
         <div>
